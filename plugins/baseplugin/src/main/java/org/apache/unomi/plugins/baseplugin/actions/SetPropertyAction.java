@@ -22,6 +22,7 @@ import org.apache.unomi.api.actions.Action;
 import org.apache.unomi.api.actions.ActionExecutor;
 import org.apache.unomi.api.services.EventService;
 import org.apache.unomi.persistence.spi.PropertyHelper;
+import org.apache.unomi.persistence.spi.PersistenceService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,6 +33,7 @@ import java.util.TimeZone;
 public class SetPropertyAction implements ActionExecutor {
 
     private EventService eventService;
+    private PersistenceService persistenceService;
 
     private boolean useEventToUpdateProfile = false;
 
@@ -39,8 +41,13 @@ public class SetPropertyAction implements ActionExecutor {
         this.useEventToUpdateProfile = useEventToUpdateProfile;
     }
 
+    public void setPersistenceService(PersistenceService persistenceService) {
+        this.persistenceService = persistenceService;
+    }
+
     public int execute(Action action, Event event) {
         boolean storeInSession = Boolean.TRUE.equals(action.getParameterValues().get("storeInSession"));
+        boolean storeInEvent = Boolean.TRUE.equals(action.getParameterValues().get("storeInEvent"));
 
         String propertyName = (String) action.getParameterValues().get("setPropertyName");
 
@@ -67,6 +74,16 @@ public class SetPropertyAction implements ActionExecutor {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
             format.setTimeZone(TimeZone.getTimeZone("UTC"));
             propertyValue = format.format(event.getTimeStamp());
+        }
+
+        if (storeInEvent) {
+            PropertyHelper.setProperty(event, propertyName, propertyValue, (String) action.getParameterValues().get("setPropertyStrategy"));
+//            event.setProperty(propertyName, propertyValue);
+            if (event.isPersistent()) {
+//                persistenceService.save(event);
+                persistenceService.update(event.getItemId(), event.getTimeStamp(), Event.class, "properties", event.getProperties());
+//                persistenceService.update(event.getItemId(), event.getTimeStamp(), Event.class, "foo", "bar");
+            }
         }
 
         if (storeInSession) {

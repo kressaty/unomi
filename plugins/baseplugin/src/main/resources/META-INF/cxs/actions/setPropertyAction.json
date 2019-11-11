@@ -47,6 +47,11 @@
       "id": "storeInSession",
       "type": "boolean",
       "multivalued": false
+    },
+    {
+      "id": "storeInEvent",
+      "type": "boolean",
+      "multivalued": false
     }
   ]
 }

@@ -190,6 +190,7 @@
         </service-properties>
         <bean class="org.apache.unomi.plugins.baseplugin.actions.SetPropertyAction">
             <property name="eventService" ref="eventService"/>
+            <property name="persistenceService" ref="persistenceService"/>
             <property name="useEventToUpdateProfile" value="${base.useEventToUpdateProfile}" />
         </bean>
     </service>
