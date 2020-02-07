@@ -1023,6 +1023,9 @@ public class ProfileServiceImpl implements ProfileService, SynchronousBundleList
                         target.put(newEntry.getKey(), newEntry.getValue());
                         changed = true;
                     }
+                } else if (newEntry.getValue().getClass().isEnum()) {
+	            	 target.put(newEntry.getKey(), newEntry.getValue());
+	                 changed = true;
                 } else {
                     if (target.get(newEntry.getKey()) != null) {
                         changed |= merge(target.get(newEntry.getKey()), newEntry.getValue());
