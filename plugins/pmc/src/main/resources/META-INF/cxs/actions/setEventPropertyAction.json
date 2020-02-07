@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "id": "setPropertyAction",
-    "name": "setPropertyAction",
+    "id": "setEventPropertyAction",
+    "name": "setEventPropertyAction",
     "description": "",
     "systemTags": [
       "profileTags",
@@ -11,7 +11,7 @@
     ],
     "readOnly": true
   },
-  "actionExecutor": "setProperty",
+  "actionExecutor": "setEventProperty",
   "parameters": [
     {
       "id": "setPropertyName",
@@ -41,16 +41,6 @@
     {
       "id": "setPropertyStrategy",
       "type": "string",
-      "multivalued": false
-    },
-    {
-      "id": "storeInSession",
-      "type": "boolean",
-      "multivalued": false
-    },
-    {
-      "id": "storeInEvent",
-      "type": "boolean",
       "multivalued": false
     }
   ]

@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
-public class SetPropertyAction implements ActionExecutor {
+public class SetEventPropertyAction implements ActionExecutor {
 
     private EventService eventService;
     private PersistenceService persistenceService;
@@ -76,41 +76,9 @@ public class SetPropertyAction implements ActionExecutor {
             propertyValue = format.format(event.getTimeStamp());
         }
 
-        if (storeInEvent) {
-            PropertyHelper.setProperty(event, propertyName, propertyValue, (String) action.getParameterValues().get("setPropertyStrategy"));
-//            event.setProperty(propertyName, propertyValue);
-            if (event.isPersistent()) {
-//                persistenceService.save(event);
-                persistenceService.update(event.getItemId(), event.getTimeStamp(), Event.class, "properties", event.getProperties());
-//                persistenceService.update(event.getItemId(), event.getTimeStamp(), Event.class, "foo", "bar");
-            }
-        }
-
-        if (storeInSession) {
-            // in the case of session storage we directly update the session
-            if (PropertyHelper.setProperty(event.getSession(), propertyName, propertyValue, (String) action.getParameterValues().get("setPropertyStrategy"))) {
-                return EventService.SESSION_UPDATED;
-            }
-        } else {
-            if (useEventToUpdateProfile) {
-                // in the case of profile storage we use the update profile properties event instead.
-                Map<String, Object> propertyToUpdate = new HashMap<>();
-                propertyToUpdate.put(propertyName, propertyValue);
-
-                Event updateProperties = new Event("updateProperties", event.getSession(), event.getProfile(), event.getScope(), null, event.getProfile(), new Date());
-                updateProperties.setPersistent(false);
-
-                updateProperties.setProperty(UpdatePropertiesAction.PROPS_TO_UPDATE, propertyToUpdate);
-                int changes = eventService.send(updateProperties);
-
-                if ((changes & EventService.PROFILE_UPDATED) == EventService.PROFILE_UPDATED) {
-                    return EventService.PROFILE_UPDATED;
-                }
-            } else {
-                if (PropertyHelper.setProperty(event.getProfile(), propertyName, propertyValue, (String) action.getParameterValues().get("setPropertyStrategy"))) {
-                    return EventService.PROFILE_UPDATED;
-                }
-            }
+        PropertyHelper.setProperty(event, propertyName, propertyValue, (String) action.getParameterValues().get("setPropertyStrategy"));
+        if (event.isPersistent()) {
+            persistenceService.update(event.getItemId(), event.getTimeStamp(), Event.class, "properties", event.getProperties());
         }
 
         return EventService.NO_CHANGE;

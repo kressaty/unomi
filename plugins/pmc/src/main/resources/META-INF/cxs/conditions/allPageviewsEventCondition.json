@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "id": "allPageviewsEventCondition",
+    "name": "All Pageviews Event Condition",
+    "description": "Fires when any \"view\" event occurs.",
+    "systemTags": [
+      "event",
+      "eventCondition"
+    ],
+    "readOnly": true
+  },
+  "parentCondition": {
+    "type": "eventTypeCondition",
+    "parameterValues": {
+      "eventTypeId": "view"
+    }
+  },
+  "parameters": [
+
+  ]
+}

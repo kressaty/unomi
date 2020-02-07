@@ -1,0 +1,48 @@
+{
+  "metadata": {
+    "id": "pageviewEventCondition",
+    "name": "Specific Pageviews Event Condition",
+    "description": "Fires when a specific \"view\" event occurs.",
+    "systemTags": [
+      "event",
+      "eventCondition"
+    ],
+    "readOnly": true
+  },
+  "parentCondition": {
+    "type": "booleanCondition",
+    "parameterValues": {
+      "operator": "and",
+      "subConditions": [
+        {
+          "type": "eventPropertyCondition",
+          "parameterValues": {
+            "propertyName": "eventType",
+            "propertyValue": "view",
+            "comparisonOperator": "equals"
+          }
+        },
+        {
+          "type": "eventPropertyCondition",
+          "parameterValues": {
+            "propertyName": "target.itemId",
+            "propertyValue": "parameter::pagePath",
+            "comparisonOperator": "parameter::matchType"
+          }
+        }
+      ]
+    }
+  },
+  "parameters": [
+    {
+      "id": "pagePath",
+      "type": "string",
+      "multivalued": false
+    },
+    {
+      "id": "matchType",
+      "type": "string",
+      "multivalued": false
+    }
+  ]
+}
