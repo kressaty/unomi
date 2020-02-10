@@ -14,4 +14,4 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Maven
-      run: mvn clean install -P integration-tests,performance-tests,rat --file pom.xml
+      run: mvn clean install -P \!integration-tests,\!performance-tests,rat -DskipTests --file pom.xml
