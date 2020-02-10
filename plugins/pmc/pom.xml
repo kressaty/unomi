@@ -32,6 +32,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.apache.unomi</groupId>
+            <artifactId>unomi-api</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <scope>provided</scope>
@@ -70,8 +76,9 @@
             <artifactId>ognl</artifactId>
         </dependency>
         <dependency>
-            <groupId>javassist</groupId>
+            <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
+            <version>3.24.1-GA</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
