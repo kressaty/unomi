@@ -1,0 +1,47 @@
+{
+  "metadata": {
+    "id": "setEventPropertyAction",
+    "name": "setEventPropertyAction",
+    "description": "",
+    "systemTags": [
+      "profileTags",
+      "demographic",
+      "availableToEndUser",
+      "allowMultipleInstances"
+    ],
+    "readOnly": true
+  },
+  "actionExecutor": "setEventProperty",
+  "parameters": [
+    {
+      "id": "setPropertyName",
+      "type": "string",
+      "multivalued": false
+    },
+    {
+      "id": "setPropertyValue",
+      "type": "string",
+      "multivalued": false
+    },
+    {
+      "id": "setPropertyValueBoolean",
+      "type": "boolean",
+      "multivalued": false
+    },
+    {
+      "id": "setPropertyValueInteger",
+      "type": "integer",
+      "multivalued": false
+    },
+    {
+      "id": "setPropertyValueMultiple",
+      "type": "string",
+      "multivalued": true
+    },
+    {
+      "id": "setPropertyStrategy",
+      "type": "string",
+      "multivalued": false
+    }
+  ]
+}

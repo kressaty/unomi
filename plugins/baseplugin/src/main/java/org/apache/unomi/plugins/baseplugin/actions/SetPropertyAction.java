@@ -49,6 +49,10 @@ public class SetPropertyAction implements ActionExecutor {
         boolean storeInSession = Boolean.TRUE.equals(action.getParameterValues().get("storeInSession"));
         boolean storeInEvent = Boolean.TRUE.equals(action.getParameterValues().get("storeInEvent"));
 
+        if (storeInSession && event.getSession() == null) {
+            return EventService.NO_CHANGE;
+        }
+
         String propertyName = (String) action.getParameterValues().get("setPropertyName");
 
         Object propertyValue = action.getParameterValues().get("setPropertyValue");
