@@ -30,6 +30,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TimeZone;
 
+import org.graalvm.polyglot.*;
+
 public class SetEventPropertyAction implements ActionExecutor {
 
     private EventService eventService;
@@ -75,6 +77,10 @@ public class SetEventPropertyAction implements ActionExecutor {
             format.setTimeZone(TimeZone.getTimeZone("UTC"));
             propertyValue = format.format(event.getTimeStamp());
         }
+
+        Context polyglot = Context.create();
+        Value array = polyglot.eval("js", "[1,2,42,4]");
+        int result = array.getArrayElement(2).asInt();
 
         PropertyHelper.setProperty(event, propertyName, propertyValue, (String) action.getParameterValues().get("setPropertyStrategy"));
         if (event.isPersistent()) {
