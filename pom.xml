@@ -73,10 +73,10 @@
         <version.pax.exam>4.13.1</version.pax.exam>
         <elasticsearch.version>7.4.2</elasticsearch.version>
 
-        <java.version>1.8</java.version>
+<!--        <java.version>1.8</java.version>-->
 
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <!--        <maven.compiler.source>${java.version}</maven.compiler.source>-->
+        <!--        <maven.compiler.target>${java.version}</maven.compiler.target>-->
         <scala.version>2.12.6</scala.version>
         <encoding>UTF-8</encoding>
 
@@ -1107,6 +1107,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
+
+                <configuration>
+                    <release>11</release>
+                </configuration>
+
             </plugin>
             <plugin>
                 <groupId>org.apache.felix</groupId>
